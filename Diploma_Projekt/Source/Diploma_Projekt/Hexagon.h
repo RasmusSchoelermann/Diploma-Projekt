@@ -2,6 +2,7 @@
 
 #pragma once
 
+//#include "SearchNode.h"
 #include "ProceduralMeshComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -15,24 +16,28 @@ class DIPLOMA_PROJEKT_API AHexagon : public AActor
 public:
 	// Sets default values for this actor's properties
 	AHexagon();
-	AHexagon(double X, double Y, int I, int J);
+	//AHexagon(double X, double Y, int I, int J);
 
 protected:
 
+	double Hexsize = 100;
+	double Hexdistance = sqrt(pow(Hexsize, 2) - pow(Hexsize / 2, 2));
 	//virtual void PostLoad() override;
 
 	//virtual void PostActorCreated() override;
 
 public:
 	void CreateHexagon();
-	FVector CenterPoint;
+	
 	void calculateVertices(double size_, double distance_);
 	void calculateVerticesUV0(double size_, double distance_);
 
 	void drawHexagon();
 	void setij(int i_, int j_);
 	void setNachbarn(AHexagon* grid[6]);
+	void setCenter(FVector newcenter);
 
+	AHexagon* Parent = nullptr;
 	UPROPERTY(EditAnywhere)
 		AHexagon* Nachbarn[6];
 
@@ -42,6 +47,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		int j;
 
+	UPROPERTY(EditAnywhere)
+	FVector CenterPoint;
 
 	UFUNCTION(BlueprintCallable, Category = "HexData")
 		int GetGridIndexi();
@@ -49,6 +56,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "HexData")
 		int GetGridIndexj();
 
+	UFUNCTION(BlueprintCallable, Category = "HexData")
+		TArray<FVector> GetPath(AHexagon* Start);
 private:
 
 	FVector Vertices[6];

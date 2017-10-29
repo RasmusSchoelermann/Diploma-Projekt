@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "math.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "HexGrid.generated.h"
@@ -15,6 +16,8 @@ public:
 	// Sets default values for this actor's properties
 	AHexGrid();
 
+	//UPROPERTY(EditAnywhere)
+	//bool HexSpawned = false;
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,8 +32,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	double Hexsize = 100;
-	double Hexdistance = 100;
+	double Hexdistance = sqrt(pow(Hexsize,2)-pow(Hexsize/2,2));
+	//double Hexdistance = 100;
+	//double Hexsize = sqrt(pow(Hexsize, 2) - pow(Hexsize / 2, 2));
 
-	
 	
 };

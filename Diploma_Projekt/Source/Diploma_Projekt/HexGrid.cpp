@@ -40,12 +40,16 @@ void AHexGrid::BeginPlay()
 				grid[i][j].setCenter((grid[0][0].getX() + (i % 2) * Hexdistance + (j * 2 * Hexdistance)), (grid[0][0].getY() + (i * ((3 * Hexsize) / 2))));
 
 				FVector Location(grid[i][j].CenterPoint);
+				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at X: %d"),Location.X);
+				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at Y: %d"),Location.Y);
+
 				FRotator Rotation(-180, 0.0f, 0.0f);
 				FActorSpawnParameters SpawnInfo;
 				AHexagongrid[i][j] = GetWorld()->SpawnActor<AHexagon>(Location, Rotation, SpawnInfo);
 				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon I: %d J: %d"), i, j);
 				AHexagongrid[i][j]->setij(i, j);
 				AHexagongrid[i][j]->drawHexagon();
+
 			}
 
 		AHexagon* tempnachbarn[6];
@@ -180,6 +184,9 @@ void AHexGrid::PostActorCreated()
 				grid[i][j].setCenter((grid[0][0].getX() + (i % 2) * Hexdistance + (j * 2 * Hexdistance)), (grid[0][0].getY() + (i * ((3 * Hexsize) / 2))));
 
 				FVector Location(grid[i][j].CenterPoint);
+				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at X: %f"), Location.X);
+				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at Y: %f"), Location.Y);
+
 				FRotator Rotation(-180, 0.0f, 0.0f);
 				FActorSpawnParameters SpawnInfo;
 				AHexagongrid[i][j] = GetWorld()->SpawnActor<AHexagon>(Location, Rotation, SpawnInfo);
