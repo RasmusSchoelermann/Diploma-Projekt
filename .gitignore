@@ -76,3 +76,6 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Diploma_Projekt/Saved/
+Diploma_Projekt/Intermediate/
+Diploma_Projekt/Binaries/
