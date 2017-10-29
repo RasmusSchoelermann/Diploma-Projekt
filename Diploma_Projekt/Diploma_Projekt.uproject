@@ -8,10 +8,16 @@
 			"Name": "Diploma_Projekt",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-      "AdditionalDependencies": [
-        "Engine",
-        "ProceduralMeshComponent"
-      ]
+			"AdditionalDependencies": [
+				"Engine",
+				"ProceduralMeshComponent"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "OnlineSubsystemSteam",
+			"Enabled": true
 		}
 	]
 }
