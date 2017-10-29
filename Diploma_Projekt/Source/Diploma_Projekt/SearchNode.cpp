@@ -21,7 +21,7 @@ bool SearchNode::CheckContains(TArray<SearchNode> Array, AHexagon * WayPoint)
 {
 	for (int i = 0; i < Array.Num(); i++)
 	{
-		if (Array[i].Waypoint == WayPoint)
+		if (Array[i].Waypoint->GetActorLocation() == WayPoint->GetActorLocation())
 		{
 			return true;
 		}

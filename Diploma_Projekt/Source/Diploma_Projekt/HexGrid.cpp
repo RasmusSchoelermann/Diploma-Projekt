@@ -70,7 +70,7 @@ void AHexGrid::BeginPlay()
 
 					if (i - 1 >= 0 && i - 1 < gridMaxI)
 					{
-						tempnachbarn[1] = AHexagongrid[i - 1][j - 1];
+						tempnachbarn[1] = AHexagongrid[i - 1][j];
 					}
 					else
 					{
@@ -213,7 +213,7 @@ void AHexGrid::PostActorCreated()
 
 					if (i - 1 >= 0 && i - 1 < gridMaxI)
 					{
-						tempnachbarn[1] = AHexagongrid[i - 1][j - 1];
+						tempnachbarn[1] = AHexagongrid[i - 1][j];
 					}
 					else
 					{

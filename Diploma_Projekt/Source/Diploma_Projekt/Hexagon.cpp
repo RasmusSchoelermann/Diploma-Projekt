@@ -136,6 +136,7 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 	SearchNode root;
 	root.Waypoint = Start;
 	root.Parent = nullptr;
+	Start->Parent = nullptr;
 	root.Heuristiccost = CenterPoint.Distance(GetActorLocation(), root.Waypoint->GetActorLocation());
 	UE_LOG(LogClass, Display, TEXT("Costs: %f"),root.Heuristiccost);
 	UE_LOG(LogClass, Display, TEXT("Start CenterX: %f"), root.Waypoint->GetActorLocation().X);
@@ -182,17 +183,21 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 					UE_LOG(LogClass, Display, TEXT("Costs: %f"), cost);
 					UE_LOG(LogClass, Display, TEXT("Tests: %f"), test);
 					
-					if (cost < test)
+					if (cost < test && currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
 					{
 						OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost), 0);
 						UE_LOG(LogClass, Display, TEXT("Insert"));
 						currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
 					}
-					else if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == true || currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == true)
+					else if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
 					{
-						OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
-						UE_LOG(LogClass, Display, TEXT("Add"));
-						currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+						//OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
+						//UE_LOG(LogClass, Display, TEXT("Add"));
+						//currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+					}
+					else
+					{
+
 					}
 
 					/*float cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
