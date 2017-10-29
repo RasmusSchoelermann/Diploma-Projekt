@@ -1,9 +1,11 @@
 # Visual Studio 2015 user specific files
 .vs/
+*.vcxproj
+*.filters
 
 # Visual Studio 2015 database file
 *.VC.db
-
+*.db
 # Compiled Object files
 *.slo
 *.lo
@@ -13,6 +15,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so

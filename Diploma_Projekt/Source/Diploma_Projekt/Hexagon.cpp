@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Hexagon.h"
-
-
+#include "math.h"
+#include "SearchNode.h"
 
 // Sets default values
 AHexagon::AHexagon()
@@ -10,8 +10,6 @@ AHexagon::AHexagon()
 	CenterPoint.X = 0;
 	CenterPoint.Y = 0;
 	CenterPoint.Z = 0;
-	calculateVertices(100, 100);
-	calculateVerticesUV0(100, 100);
 
 	mesh = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GeneratedMesh"));
 	RootComponent = mesh;
@@ -108,6 +106,14 @@ void AHexagon::setNachbarn(AHexagon * grid[6])
 	Nachbarn[5] = grid[5];
 }
 
+void AHexagon::setCenter(FVector newcenter)
+{
+	CenterPoint = newcenter;
+
+	UE_LOG(LogClass, Display, TEXT("Set CenterX: %f"), newcenter.X);
+	UE_LOG(LogClass, Display, TEXT("Set CenterY: %f"), newcenter.Y);
+}
+
 int AHexagon::GetGridIndexi()
 {
 	return i;
@@ -119,12 +125,108 @@ int AHexagon::GetGridIndexj()
 }
 
 
+TArray<FVector> AHexagon::GetPath(AHexagon* Start)
+{
+	
+
+	TArray<SearchNode> OpenList;
+	TArray<SearchNode> ClosedList;
+	TArray<FVector> FinalPath;
+	
+	SearchNode root;
+	root.Waypoint = Start;
+	root.Parent = nullptr;
+	root.Heuristiccost = CenterPoint.Distance(GetActorLocation(), root.Waypoint->GetActorLocation());
+	UE_LOG(LogClass, Display, TEXT("Costs: %f"),root.Heuristiccost);
+	UE_LOG(LogClass, Display, TEXT("Start CenterX: %f"), root.Waypoint->GetActorLocation().X);
+	UE_LOG(LogClass, Display, TEXT("Goal CenterX: %f"), GetActorLocation().X);
+	UE_LOG(LogClass, Display, TEXT("Start CenterY: %f"), root.Waypoint->GetActorLocation().Y);
+	UE_LOG(LogClass, Display, TEXT("Goal CenterY: %f"), GetActorLocation().Y);
+	OpenList.Add(root);
+	
+	for (int i = 0; i < OpenList.Num();i++)
+	{
+		SearchNode currentNode = OpenList[0];
+
+		if(currentNode.Waypoint->GetActorLocation() == GetActorLocation())
+		{
+			SearchNode checknode = currentNode;
+			while (checknode.Waypoint->Parent != nullptr)
+			{
+				FinalPath.Insert(checknode.Waypoint->GetActorLocation(),0);
+				checknode.Waypoint = checknode.Waypoint->Parent;
+			}
+			FinalPath.Insert(checknode.Waypoint->GetActorLocation(), 0);
+			UE_LOG(LogClass, Display, TEXT("GOAL Return Final Path"));
+			return FinalPath;
+		}
+
+		for (int i = 0; i < 6; i++)
+		{
+			if(currentNode.Waypoint->Nachbarn[i] == nullptr)
+			{
+
+			}
+			else
+			{
+				if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == true || currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == true)
+				{
+
+
+				}
+				else
+				{
+					// TODO
+					float cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
+					float test = OpenList[0].Heuristiccost;
+					UE_LOG(LogClass, Display, TEXT("Costs: %f"), cost);
+					UE_LOG(LogClass, Display, TEXT("Tests: %f"), test);
+					
+					if (cost < test)
+					{
+						OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost), 0);
+						UE_LOG(LogClass, Display, TEXT("Insert"));
+						currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+					}
+					else if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == true || currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == true)
+					{
+						OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
+						UE_LOG(LogClass, Display, TEXT("Add"));
+						currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+					}
+
+					/*float cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
+					cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
+
+					if(cost < OpenList.Top().Heuristiccost)
+					{
+						OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], &currentNode, cost), 0);
+						UE_LOG(LogClass, Display, TEXT("Insert"));
+					}
+					else
+					{
+						OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], &currentNode, cost));
+						UE_LOG(LogClass, Display, TEXT("Add"));
+						
+					}*/
+				}
+			}
+		}
+
+		ClosedList.Add(currentNode);
+	}
+	
+	UE_LOG(LogClass, Display, TEXT("NOPE"));
+	return FinalPath;
+
+	
+}
 
 void AHexagon::CreateHexagon()
 {
 
-	calculateVertices(100, 100);
-	calculateVerticesUV0(100, 100);
+	calculateVertices(Hexsize,Hexdistance);
+	calculateVerticesUV0(Hexsize, Hexdistance);
 
 	TArray<FVector> vertices;
 	vertices.Add(CenterPoint);
