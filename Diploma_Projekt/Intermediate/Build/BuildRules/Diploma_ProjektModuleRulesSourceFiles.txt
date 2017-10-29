@@ -1,3 +1,0 @@
-C:\Users\Rasmus\Documents\Diploma-Projekt\Diploma_Projekt\Source\Diploma_Projekt\Diploma_Projekt.Build.cs
-C:\Users\Rasmus\Documents\Diploma-Projekt\Diploma_Projekt\Source\Diploma_Projekt.Target.cs
-C:\Users\Rasmus\Documents\Diploma-Projekt\Diploma_Projekt\Source\Diploma_ProjektEditor.Target.cs
