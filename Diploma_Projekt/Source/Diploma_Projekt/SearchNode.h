@@ -18,5 +18,9 @@ public:
 	AHexagon* Parent;
 	float Heuristiccost;
 
+	int index;
+
 	bool CheckContains(TArray<SearchNode> Array, AHexagon* WayPoint);
+
+	bool operator==(const SearchNode b) const;
 };

@@ -21,14 +21,27 @@ bool SearchNode::CheckContains(TArray<SearchNode> Array, AHexagon * WayPoint)
 {
 	for (int i = 0; i < Array.Num(); i++)
 	{
+
 		if (Array[i].Waypoint->GetActorLocation() == WayPoint->GetActorLocation())
 		{
 			return true;
 		}
 		else
 		{
-			return false;
+			
 		}
 	}
+
 	return false;
+}
+
+bool SearchNode::operator==(const SearchNode b) const
+{
+	if (this->Heuristiccost == b.Heuristiccost && this->Parent == b.Parent && this->Waypoint == b.Waypoint)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
 }

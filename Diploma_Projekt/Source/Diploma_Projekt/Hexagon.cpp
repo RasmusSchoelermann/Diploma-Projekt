@@ -173,7 +173,6 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 				if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == true || currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == true)
 				{
 
-
 				}
 				else
 				{
@@ -191,34 +190,37 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 					}
 					else if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
 					{
-						//OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
-						//UE_LOG(LogClass, Display, TEXT("Add"));
-						//currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
-					}
-					else
-					{
+						int length = OpenList.Num();
+						for (int ib = 0; ib <length; ib++)
+						{
+							if (cost < OpenList[ib].Heuristiccost && currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
+							{
+								OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost),ib);
+								UE_LOG(LogClass, Display, TEXT("Add"));
+								currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+							}
+							else
+							{
+								OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
+								UE_LOG(LogClass, Display, TEXT("Add"));
+								currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+							}
 
-					}
-
-					/*float cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
-					cost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
-
-					if(cost < OpenList.Top().Heuristiccost)
-					{
-						OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], &currentNode, cost), 0);
-						UE_LOG(LogClass, Display, TEXT("Insert"));
-					}
-					else
-					{
-						OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], &currentNode, cost));
-						UE_LOG(LogClass, Display, TEXT("Add"));
+						}
 						
-					}*/
+					}
+					else
+					{
+
+					}
 				}
 			}
 		}
-
+		
+	
 		ClosedList.Add(currentNode);
+		int a = OpenList.RemoveSingle(currentNode);
+		UE_LOG(LogClass, Display, TEXT("Removed %d"),a);
 	}
 	
 	UE_LOG(LogClass, Display, TEXT("NOPE"));
@@ -226,6 +228,10 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 
 	
 }
+
+
+
+
 
 void AHexagon::CreateHexagon()
 {
