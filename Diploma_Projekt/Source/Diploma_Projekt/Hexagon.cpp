@@ -170,7 +170,10 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 			}
 			else
 			{
-				if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == true || currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == true)
+				SearchNode testNode;
+				testNode.Heuristiccost = CenterPoint.Distance(GetActorLocation(), currentNode.Waypoint->Nachbarn[i]->GetActorLocation());
+				testNode.Waypoint = currentNode.Waypoint->Nachbarn[i];
+				if(OpenList.Contains(testNode) == true || ClosedList.Contains(testNode) == true) //currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false
 				{
 
 				}
@@ -182,30 +185,34 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 					UE_LOG(LogClass, Display, TEXT("Costs: %f"), cost);
 					UE_LOG(LogClass, Display, TEXT("Tests: %f"), test);
 					
-					if (cost < test && currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
+					if (cost < test && OpenList.Contains(testNode) == false && ClosedList.Contains(testNode) == false)
 					{
 						OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost), 0);
 						UE_LOG(LogClass, Display, TEXT("Insert"));
 						currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
 					}
-					else if(currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
+					else if(OpenList.Contains(testNode) == false && ClosedList.Contains(testNode) == false)
 					{
 						int length = OpenList.Num();
 						for (int ib = 0; ib <length; ib++)
 						{
-							if (cost < OpenList[ib].Heuristiccost && currentNode.CheckContains(OpenList, currentNode.Waypoint->Nachbarn[i]) == false && currentNode.CheckContains(ClosedList, currentNode.Waypoint->Nachbarn[i]) == false)
+							if (cost < OpenList[ib].Heuristiccost && OpenList.Contains(testNode) == false && ClosedList.Contains(testNode) == false)
 							{
 								OpenList.Insert(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost),ib);
-								UE_LOG(LogClass, Display, TEXT("Add"));
+								UE_LOG(LogClass, Display, TEXT("Sorted in Place"));
 								currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
+								break;
 							}
-							else
+							else if (ib == length - 1)
 							{
 								OpenList.Add(SearchNode(currentNode.Waypoint->Nachbarn[i], currentNode.Waypoint, cost));
-								UE_LOG(LogClass, Display, TEXT("Add"));
+								UE_LOG(LogClass, Display, TEXT("Sort to last"));
 								currentNode.Waypoint->Nachbarn[i]->Parent = currentNode.Waypoint;
 							}
+							else {
 
+							}
+							
 						}
 						
 					}
