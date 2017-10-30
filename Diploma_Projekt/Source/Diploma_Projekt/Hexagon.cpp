@@ -145,7 +145,7 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 	UE_LOG(LogClass, Display, TEXT("Goal CenterY: %f"), GetActorLocation().Y);
 	OpenList.Add(root);
 	
-	for (int i = 0; i < OpenList.Num();i++)
+	while (OpenList.Num() > 0)
 	{
 		SearchNode currentNode = OpenList[0];
 
