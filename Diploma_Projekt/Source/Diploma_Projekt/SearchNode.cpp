@@ -37,7 +37,7 @@ bool SearchNode::CheckContains(TArray<SearchNode> Array, AHexagon * WayPoint)
 
 bool SearchNode::operator==(const SearchNode b) const
 {
-	if (this->Heuristiccost == b.Heuristiccost && this->Parent == b.Parent && this->Waypoint == b.Waypoint)
+	if (this->Heuristiccost == b.Heuristiccost && this->Waypoint == b.Waypoint)
 	{
 		return true;
 	}
