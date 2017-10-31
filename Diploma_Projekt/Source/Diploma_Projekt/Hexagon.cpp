@@ -114,6 +114,16 @@ void AHexagon::setCenter(FVector newcenter)
 	UE_LOG(LogClass, Display, TEXT("Set CenterY: %f"), newcenter.Y);
 }
 
+void AHexagon::setaviable(bool b)
+{
+	avaible = b;
+}
+
+bool AHexagon::getaviable()
+{
+	return avaible;
+}
+
 int AHexagon::GetGridIndexi()
 {
 	return i;
@@ -145,7 +155,7 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 	UE_LOG(LogClass, Display, TEXT("Goal CenterY: %f"), GetActorLocation().Y);
 	OpenList.Add(root);
 	
-	for (int i = 0; i < OpenList.Num();i++)
+	while (OpenList.Num() > 0)
 	{
 		SearchNode currentNode = OpenList[0];
 
@@ -164,7 +174,7 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 
 		for (int i = 0; i < 6; i++)
 		{
-			if(currentNode.Waypoint->Nachbarn[i] == nullptr)
+			if(currentNode.Waypoint->Nachbarn[i] == nullptr || currentNode.Waypoint->Nachbarn[i]->avaible == false)
 			{
 
 			}
@@ -229,8 +239,8 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 		int a = OpenList.RemoveSingle(currentNode);
 		UE_LOG(LogClass, Display, TEXT("Removed %d"),a);
 	}
-	
-	UE_LOG(LogClass, Display, TEXT("NOPE"));
+
+	UE_LOG(LogClass, Display, TEXT("NO PATH"));
 	return FinalPath;
 
 	

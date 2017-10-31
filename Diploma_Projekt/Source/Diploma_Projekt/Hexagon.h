@@ -50,6 +50,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	FVector CenterPoint;
 
+	UPROPERTY(EditAnywhere)
+		bool avaible = true;
+
+	UFUNCTION(BlueprintCallable, Category = "HexData")
+		void setaviable(bool Status);
+
+	UFUNCTION(BlueprintCallable, Category = "HexData")
+		bool getaviable();
+
 	UFUNCTION(BlueprintCallable, Category = "HexData")
 		int GetGridIndexi();
 
