@@ -174,7 +174,7 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 
 		for (int i = 0; i < 6; i++)
 		{
-			if(currentNode.Waypoint->Nachbarn[i] == nullptr || currentNode.Waypoint->Nachbarn[i]->avaible == false)
+			if(currentNode.Waypoint->Nachbarn[i] == nullptr || currentNode.Waypoint->Nachbarn[i]->avaible == false || currentNode.Waypoint->Nachbarn[i]->height - currentNode.Waypoint->height > 1 || currentNode.Waypoint->Nachbarn[i]->height - currentNode.Waypoint->height < -1)
 			{
 
 			}
