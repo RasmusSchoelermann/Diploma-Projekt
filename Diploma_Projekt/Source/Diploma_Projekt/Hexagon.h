@@ -53,6 +53,15 @@ public:
 	UPROPERTY(EditAnywhere)
 		bool avaible = true;
 
+	UPROPERTY(EditAnywhere)
+		int height = 0;
+
+	UPROPERTY(EditAnywhere)
+		int cost = 0;
+
+	UPROPERTY(EditAnywhere)
+		int Region;
+
 	UFUNCTION(BlueprintCallable, Category = "HexData")
 		void setaviable(bool Status);
 
