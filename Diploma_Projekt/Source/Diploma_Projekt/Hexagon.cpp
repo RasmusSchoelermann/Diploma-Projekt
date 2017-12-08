@@ -7,12 +7,16 @@
 // Sets default values
 AHexagon::AHexagon()
 {
+	/*
 	CenterPoint.X = 0;
 	CenterPoint.Y = 0;
 	CenterPoint.Z = 0;
+	*/
 
 	mesh = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GeneratedMesh"));
 	RootComponent = mesh;
+	
+
 	/**
 	*	Create/replace a section for this procedural mesh component.
 	*	@param	SectionIndex		Index of the section to create or replace.
@@ -245,9 +249,6 @@ TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 
 	
 }
-
-
-
 
 
 void AHexagon::CreateHexagon()

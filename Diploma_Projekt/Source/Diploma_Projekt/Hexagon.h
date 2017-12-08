@@ -76,6 +76,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "HexData")
 		TArray<FVector> GetPath(AHexagon* Start);
+
+
 private:
 
 	FVector Vertices[6];
@@ -83,6 +85,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent * mesh;
-	
+
 	
 };
