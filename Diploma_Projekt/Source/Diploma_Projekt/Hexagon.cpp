@@ -138,6 +138,11 @@ int AHexagon::GetGridIndexj()
 	return j;
 }
 
+int AHexagon::GetCost()
+{
+	return cost;
+}
+
 
 TArray<FVector> AHexagon::GetPath(AHexagon* Start)
 {
