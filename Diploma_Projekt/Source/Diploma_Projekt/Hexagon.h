@@ -75,6 +75,9 @@ public:
 		int GetGridIndexj();
 
 	UFUNCTION(BlueprintCallable, Category = "HexData")
+		int GetCost();
+
+	UFUNCTION(BlueprintCallable, Category = "HexData")
 		TArray<FVector> GetPath(AHexagon* Start);
 
 
