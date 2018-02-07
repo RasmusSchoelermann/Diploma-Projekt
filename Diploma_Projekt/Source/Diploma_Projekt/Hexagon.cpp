@@ -66,24 +66,23 @@ void AHexagon::calculateVertices(double size_, double distance_)
 
 void AHexagon::calculateVerticesUV0(double size_, double distance_)
 {
-	VerticesUV0[0].X = CenterPoint.X;
-	VerticesUV0[0].Y = CenterPoint.Y - (size_ / 10);
+	VerticesUV0[0].X = (CenterPoint.X / 100);
+	VerticesUV0[0].Y = (CenterPoint.Y - size_ / 100);
 
-	VerticesUV0[1].X = CenterPoint.X + (distance_ / 10);
-	VerticesUV0[1].Y = CenterPoint.Y - ((size_ / 10) / 2);
+	VerticesUV0[1].X = (CenterPoint.X + distance_ / 100);
+	VerticesUV0[1].Y = (CenterPoint.Y - (size_ / 2) / 100);
 
-	VerticesUV0[2].X = CenterPoint.X + (distance_ / 10);
-	VerticesUV0[2].Y = CenterPoint.Y + ((size_ / 10) / 2);
+	VerticesUV0[2].X = (CenterPoint.X + distance_ / 100);
+	VerticesUV0[2].Y = (CenterPoint.Y + (size_/ 2) / 100);
 
-	VerticesUV0[3].X = CenterPoint.X;
-	VerticesUV0[3].Y = CenterPoint.Y + (size_ / 10);
+	VerticesUV0[3].X = (CenterPoint.X / 100);
+	VerticesUV0[3].Y = (CenterPoint.Y + size_ / 100);
 
-	VerticesUV0[4].X = CenterPoint.X - (distance_ / 10);
-	VerticesUV0[4].Y = CenterPoint.Y + ((size_ / 10) / 2);
+	VerticesUV0[4].X = (CenterPoint.X - distance_ / 100);
+	VerticesUV0[4].Y = (CenterPoint.Y + (size_ / 2) / 100);
 
-	VerticesUV0[5].X = CenterPoint.X - (distance_ / 10);
-	VerticesUV0[5].Y = CenterPoint.X - ((size_ / 10) / 2);
-
+	VerticesUV0[5].X = (CenterPoint.X - distance_ / 100);
+	VerticesUV0[5].Y = (CenterPoint.X - (size_ / 2) / 100);
 }
 
 
@@ -272,35 +271,40 @@ void AHexagon::CreateHexagon()
 	vertices.Add(Vertices[5]);
 
 	TArray<int32> Triangles;
-	Triangles.Add(0);
+	Triangles.Add(2);
 	Triangles.Add(1);
+	Triangles.Add(0);
+
+	Triangles.Add(3);
 	Triangles.Add(2);
 	Triangles.Add(0);
-	Triangles.Add(2);
+
+	Triangles.Add(4);
 	Triangles.Add(3);
 	Triangles.Add(0);
-	Triangles.Add(3);
+
+	Triangles.Add(5);
 	Triangles.Add(4);
 	Triangles.Add(0);
-	Triangles.Add(4);
+
+	Triangles.Add(6);
 	Triangles.Add(5);
 	Triangles.Add(0);
-	Triangles.Add(5);
-	Triangles.Add(6);
-	Triangles.Add(0);
-	Triangles.Add(6);
+
 	Triangles.Add(1);
+	Triangles.Add(6);
+	Triangles.Add(0);
 
 
 
 	TArray<FVector> normals;
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
-	normals.Add(FVector(1, 0, 0));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
+	normals.Add(FVector(0, 0, 1));
 
 
 	TArray<FVector2D> UV0;
