@@ -7,8 +7,8 @@
 
 
 bool HexSpawned = false;
-const int gridMaxI = 27;
-const int gridMaxJ = 45;
+const int gridMaxI = 9;
+const int gridMaxJ = 9;
 
 // Sets default values
 AHexGrid::AHexGrid()
@@ -49,7 +49,7 @@ void AHexGrid::PostActorCreated()
 				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at X: %f"), Location.X);
 				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon at Y: %f"), Location.Y);
 
-				FRotator Rotation(-180, 0.0f, 0.0f);
+				FRotator Rotation(0.0f, 0.0f, 0.0f);
 				FActorSpawnParameters SpawnInfo;
 				AHexagongrid[i][j] = GetWorld()->SpawnActor<AHexagon>(Location, Rotation, SpawnInfo);
 				UE_LOG(LogClass, Display, TEXT("Spawned Hexagon I: %d J: %d"), i, j);
