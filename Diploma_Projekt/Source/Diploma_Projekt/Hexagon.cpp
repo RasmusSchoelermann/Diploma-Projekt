@@ -66,23 +66,23 @@ void AHexagon::calculateVertices(double size_, double distance_)
 
 void AHexagon::calculateVerticesUV0(double size_, double distance_)
 {
-	VerticesUV0[0].X = (CenterPoint.X / 100);
-	VerticesUV0[0].Y = (CenterPoint.Y - size_ / 100);
+	VerticesUV0[0].X = 0.5;
+	VerticesUV0[0].Y = 0.5 - size_ ;
 
-	VerticesUV0[1].X = (CenterPoint.X + distance_ / 100);
-	VerticesUV0[1].Y = (CenterPoint.Y - (size_ / 2) / 100);
+	VerticesUV0[1].X = 0.5 + distance_ ;
+	VerticesUV0[1].Y = 0.5 - (size_ / 2 );
 
-	VerticesUV0[2].X = (CenterPoint.X + distance_ / 100);
-	VerticesUV0[2].Y = (CenterPoint.Y + (size_/ 2) / 100);
+	VerticesUV0[2].X = 0.5 + distance_ ;
+	VerticesUV0[2].Y = 0.5 + (size_/ 2);
 
-	VerticesUV0[3].X = (CenterPoint.X / 100);
-	VerticesUV0[3].Y = (CenterPoint.Y + size_ / 100);
+	VerticesUV0[3].X = 0.5;
+	VerticesUV0[3].Y = 0.5 + size_ ;
 
-	VerticesUV0[4].X = (CenterPoint.X - distance_ / 100);
-	VerticesUV0[4].Y = (CenterPoint.Y + (size_ / 2) / 100);
+	VerticesUV0[4].X = 0.5 - distance_;
+	VerticesUV0[4].Y = 0.5 + (size_ / 2);
 
-	VerticesUV0[5].X = (CenterPoint.X - distance_ / 100);
-	VerticesUV0[5].Y = (CenterPoint.X - (size_ / 2) / 100);
+	VerticesUV0[5].X = 0.5 - distance_;
+	VerticesUV0[5].Y = 0.5 - (size_ / 2);
 }
 
 
@@ -259,7 +259,7 @@ void AHexagon::CreateHexagon()
 {
 
 	calculateVertices(Hexsize,Hexdistance);
-	calculateVerticesUV0(Hexsize, Hexdistance);
+	calculateVerticesUV0(0.5, sqrt(pow(0.5, 2) - pow(0.5 / 2, 2)));
 
 	TArray<FVector> vertices;
 	vertices.Add(CenterPoint);
@@ -308,7 +308,7 @@ void AHexagon::CreateHexagon()
 
 
 	TArray<FVector2D> UV0;
-	UV0.Add(FVector2D(0, 0));
+	UV0.Add(FVector2D(0.5, 0.5));
 	UV0.Add(FVector2D(VerticesUV0[0]));
 	UV0.Add(FVector2D(VerticesUV0[1]));
 	UV0.Add(FVector2D(VerticesUV0[2]));
