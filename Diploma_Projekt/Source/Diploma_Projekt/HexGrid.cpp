@@ -7,8 +7,8 @@
 
 
 bool HexSpawned = false;
-const int gridMaxI = 9;
-const int gridMaxJ = 9;
+const int gridMaxI = 27;
+const int gridMaxJ = 45;
 
 // Sets default values
 AHexGrid::AHexGrid()
